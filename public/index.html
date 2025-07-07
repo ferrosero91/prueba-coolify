@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portfolio - Desarrollador Web</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn.active {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 255, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .content-section {
+                padding: 20px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-btn {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="status-indicator">
+        🚀 Desplegado en Coolify
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Juan Pérez</h1>
+            <p class="subtitle">Desarrollador Full Stack</p>
+            <div class="nav-buttons">
+                <button class="nav-btn active" onclick="showSection('about')">Acerca de</button>
+                <button class="nav-btn" onclick="showSection('skills')">Habilidades</button>
+                <button class="nav-btn" onclick="showSection('projects')">Proyectos</button>
+                <button class="nav-btn" onclick="showSection('contact')">Contacto</button>
+            </div>
+        </header>
+
+        <div id="about" class="content-section active">
+            <h2>Acerca de mí</h2>
+            <p>¡Hola! Soy un desarrollador web apasionado por crear experiencias digitales increíbles. Con más de 3 años de experiencia en desarrollo full stack, me especializo en crear aplicaciones web modernas, escalables y fáciles de usar.</p>
+            <br>
+            <p>Me encanta trabajar con tecnologías modernas como React, Node.js, y bases de datos tanto SQL como NoSQL. Siempre estoy aprendiendo nuevas tecnologías y metodologías para mejorar mi trabajo.</p>
+            <br>
+            <p>Cuando no estoy programando, disfruto de la fotografía, los videojuegos y explorar nuevos lugares. Creo firmemente en el poder de la tecnología para resolver problemas reales y hacer la vida más fácil.</p>
+        </div>
+
+        <div id="skills" class="content-section">
+            <h2>Mis Habilidades</h2>
+            <p>Estas son las tecnologías y herramientas con las que trabajo:</p>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Frontend</h3>
+                    <p>HTML5, CSS3, JavaScript, React, Vue.js, Sass</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Backend</h3>
+                    <p>Node.js, Express, Python, Django, PHP</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Bases de Datos</h3>
+                    <p>MySQL, PostgreSQL, MongoDB, Redis</p>
+                </div>
+                <div class="skill-card">
+                    <h3>DevOps</h3>
+                    <p>Docker, Kubernetes, AWS, Coolify, Nginx</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Herramientas</h3>
+                    <p>Git, VS Code, Figma, Postman</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Metodologías</h3>
+                    <p>Scrum, Agile, TDD, CI/CD</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="projects" class="content-section">
+            <h2>Mis Proyectos</h2>
+            <p>Aquí tienes algunos de mis proyectos más destacados:</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        📱 App Móvil
+                    </div>
+                    <div class="project-content">
+                        <h3>E-commerce Mobile</h3>
+                        <p>Aplicación móvil completa para comercio electrónico con React Native, integración de pagos y gestión de inventario.</p>
+                        <p><strong>Tecnologías:</strong> React Native, Node.js, MongoDB</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        🌐 Web App
+                    </div>
+                    <div class="project-content">
+                        <h3>Dashboard Analítico</h3>
+                        <p>Plataforma web para visualización de datos en tiempo real con gráficos interactivos y reportes personalizados.</p>
+                        <p><strong>Tecnologías:</strong> React, D3.js, Express, PostgreSQL</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        ⚙️ Sistema
+                    </div>
+                    <div class="project-content">
+                        <h3>Sistema de Gestión</h3>
+                        <p>Sistema completo de gestión empresarial con módulos de inventario, ventas, usuarios y reportes.</p>
+                        <p><strong>Tecnologías:</strong> Vue.js, Django, MySQL</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="contact" class="content-section">
+            <h2>Contacto</h2>
+            <p>¿Tienes un proyecto en mente? ¡Me encantaría saber de ti!</p>
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Asunto:</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensaje:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Mostrar la sección seleccionada
+            document.getElementById(sectionId).classList.add('active');
+
+            // Actualizar botones de navegación
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Simular envío del formulario
+            const submitBtn = event.target.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.textContent = '¡Mensaje Enviado!';
+                submitBtn.style.background = 'linear-gradient(135deg, #00c851 0%, #007e33 100%)';
+                
+                // Limpiar formulario
+                event.target.reset();
+                
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                }, 2000);
+            }, 1500);
+        }
+
+        // Agregar efectos de animación al cargar la página
+        window.addEventListener('load', function() {
+            const header = document.querySelector('header');
+            header.style.animation = 'fadeIn 1s ease-in';
+            
+            setTimeout(() => {
+                const activeSection = document.querySelector('.content-section.active');
+                activeSection.style.animation = 'fadeIn 0.5s ease-in';
+            }, 500);
+        });
+
+        // Efecto de partículas en el fondo (opcional)
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = 'rgba(255, 255, 255, 0.5)';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = '100vh';
+            particle.style.zIndex = '-1';
+            
+            document.body.appendChild(particle);
+            
+            const animation = particle.animate([
+                { transform: 'translateY(0px)', opacity: 1 },
+                { transform: 'translateY(-100vh)', opacity: 0 }
+            ], {
+                duration: Math.random() * 3000 + 2000,
+                easing: 'linear'
+            });
+            
+            animation.onfinish = () => {
+                particle.remove();
+            };
+        }
+
+        // Crear partículas ocasionalmente
+        setInterval(createParticle, 300);
+    </script>
+</body>
+</html>
