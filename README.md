@@ -7,8 +7,8 @@ Un portfolio moderno y profesional desarrollado con tecnologías web modernas, d
 - **Diseño Moderno**: Interfaz elegante con efectos visuales profesionales
 - **Responsive**: Optimizado para todos los dispositivos
 - **Interactivo**: Animaciones suaves y transiciones estilo React
-- **Formulario de Contacto Funcional**: Envío de emails reales
-- **Botón de WhatsApp**: Contacto directo vía WhatsApp
+- **Botón de WhatsApp**: Contacto directo vía WhatsApp (+57 311 709 8269)
+- **Formulario de Contacto**: Preparado para integración con EmailJS/Formspree
 - **SEO Optimizado**: Meta tags y estructura semántica
 - **Performance**: Carga rápida y optimizada
 
@@ -20,22 +20,16 @@ Un portfolio moderno y profesional desarrollado con tecnologías web modernas, d
 - Google Fonts (Inter)
 - Animaciones CSS y JavaScript
 
-### Backend
-- Node.js con Express
-- Nodemailer para envío de emails
-- CORS habilitado
-
 ### Deployment
-- Docker containerization
+- Docker containerization con Nginx
 - Coolify deployment ready
 - Puerto 8001
 
 ## 📦 Instalación
 
 ### Prerrequisitos
-- Node.js 14+ 
 - Docker (opcional)
-- Cuenta de Gmail para envío de emails
+- Cuenta de EmailJS o Formspree para formulario de contacto
 
 ### Configuración Local
 
@@ -45,58 +39,33 @@ git clone <repository-url>
 cd prueba-coolify
 ```
 
-2. **Instalar dependencias**
-```bash
-npm install
-```
-
-3. **Configurar variables de entorno**
-```bash
-# Crear archivo .env
-echo "EMAIL_PASSWORD=tu_contraseña_de_aplicacion" > .env
-```
-
-4. **Configurar Gmail**
-   - Habilitar autenticación de 2 factores en tu cuenta Gmail
-   - Generar una contraseña de aplicación
-   - Usar esa contraseña en la variable EMAIL_PASSWORD
-
-5. **Ejecutar en desarrollo**
-```bash
-npm run dev
-```
-
-6. **Ejecutar en producción**
-```bash
-npm start
-```
-
-### Configuración con Docker
-
-1. **Construir la imagen**
+2. **Ejecutar con Docker**
 ```bash
 docker build -t fernando-portfolio .
+docker run -p 8001:8001 fernando-portfolio
 ```
 
-2. **Ejecutar el contenedor**
+3. **O ejecutar directamente**
 ```bash
-docker run -p 8001:8001 -e EMAIL_PASSWORD=tu_contraseña fernando-portfolio
+# Instalar un servidor local simple
+npm install -g http-server
+cd public
+http-server -p 8001
 ```
 
-## 🔧 Configuración de Email
+## 🔧 Configuración del Formulario de Contacto
 
-Para que el formulario de contacto funcione correctamente:
+### Opción 1: EmailJS (Recomendado)
+1. Crear cuenta en [EmailJS](https://www.emailjs.com/)
+2. Configurar servicio Gmail
+3. Crear template de email
+4. Seguir instrucciones en `EMAIL_SETUP.md`
 
-1. **Gmail Setup**:
-   - Ve a tu cuenta de Google
-   - Activa la verificación en 2 pasos
-   - Genera una contraseña de aplicación
-   - Usa esa contraseña en la variable de entorno
-
-2. **Variables de Entorno**:
-   ```bash
-   EMAIL_PASSWORD=tu_contraseña_de_aplicacion
-   ```
+### Opción 2: Formspree
+1. Crear cuenta en [Formspree](https://formspree.io/)
+2. Obtener endpoint URL
+3. Actualizar formulario HTML
+4. Ver `EMAIL_SETUP.md` para detalles
 
 ## 📱 Características del Portfolio
 
@@ -105,13 +74,12 @@ Para que el formulario de contacto funcione correctamente:
 - **Acerca de**: Información personal y experiencia
 - **Habilidades**: Grid de tecnologías organizadas por categorías
 - **Proyectos**: Portfolio de trabajos destacados
-- **Contacto**: Formulario funcional + WhatsApp
+- **Contacto**: Formulario + WhatsApp + información de contacto
 
 ### Funcionalidades Interactivas
 - Navegación suave entre secciones
 - Animaciones de entrada
 - Efectos hover en tarjetas
-- Formulario de contacto con validación
 - Botón de WhatsApp flotante
 - Loader de carga inicial
 
@@ -129,12 +97,12 @@ Para que el formulario de contacto funcione correctamente:
 
 2. **Configurar en Coolify**:
    - Puerto: 8001
-   - Variables de entorno: EMAIL_PASSWORD
-   - Build command: `npm ci --only=production`
-   - Start command: `npm start`
+   - Build command: `docker build -t .`
+   - Start command: `docker run -p 8001:8001 .`
 
-3. **Variables de entorno en Coolify**:
+3. **Variables de entorno** (opcional):
    ```
+   # Solo si usas backend personalizado
    EMAIL_PASSWORD=tu_contraseña_de_aplicacion
    ```
 
@@ -144,12 +112,11 @@ Para que el formulario de contacto funcione correctamente:
 prueba-coolify/
 ├── public/
 │   └── index.html          # Frontend principal
-├── server.js               # Backend Node.js
-├── package.json            # Dependencias
+├── .docker/
+│   └── nginx.conf          # Configuración Nginx
 ├── Dockerfile              # Configuración Docker
 ├── docker-compose.yaml     # Orquestación Docker
-├── .docker/
-│   └── nginx.conf          # Config Nginx (legacy)
+├── EMAIL_SETUP.md          # Guía configuración email
 └── README.md               # Documentación
 ```
 
@@ -177,11 +144,9 @@ Los colores principales están definidos en CSS variables:
 
 ## 🔒 Seguridad
 
-- Variables de entorno para credenciales
-- Validación de formularios
-- CORS configurado
-- Usuario no-root en Docker
-- Headers de seguridad
+- Validación de formularios en frontend
+- Headers de seguridad en Nginx
+- Configuración CORS apropiada
 
 ## 📈 Performance
 
