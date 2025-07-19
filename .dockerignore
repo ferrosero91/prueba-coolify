@@ -1,0 +1,24 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+EMAIL_SETUP.md
+
+# Docker
+docker-compose.yaml
+.dockerignore
+
+# Node.js (if any)
+node_modules
+package*.json
+npm-debug.log*
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db 
